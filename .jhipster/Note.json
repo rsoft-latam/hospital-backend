@@ -1,0 +1,29 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipName": "patient",
+      "otherEntityName": "patient",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "changelogDate": "00000000000300",
+  "dto": "no",
+  "service": "serviceClass",
+  "entityTableName": "note",
+  "jpaMetamodelFiltering": true,
+  "pagination": "pager"
+}

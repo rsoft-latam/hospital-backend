@@ -1,0 +1,22 @@
+{
+  "fluentMethods": true,
+  "relationships": [],
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "creationDate",
+      "fieldType": "String",
+      "fieldValidateRules": []
+    }
+  ],
+  "changelogDate": "00000000000200",
+  "dto": "no",
+  "service": "serviceClass",
+  "entityTableName": "hospital",
+  "jpaMetamodelFiltering": true,
+  "pagination": "yes"
+}

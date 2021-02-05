@@ -1,0 +1,44 @@
+{
+  "fluentMethods": true,
+  "relationships": [
+    {
+      "relationshipName": "hospital",
+      "otherEntityName": "hospital",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldName": "firstName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "birthday",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "address",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "urlPhoto",
+      "fieldType": "String",
+      "fieldValidateRules": []
+    }
+  ],
+  "changelogDate": "00000000000400",
+  "dto": "no",
+  "service": "serviceClass",
+  "entityTableName": "patient",
+  "jpaMetamodelFiltering": true,
+  "pagination": "pager"
+}
