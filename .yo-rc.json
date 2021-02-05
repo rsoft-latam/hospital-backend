@@ -1,0 +1,37 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "hospital"
+    },
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "monolith",
+    "baseName": "hospital",
+    "packageName": "hospital",
+    "packageFolder": "hospital",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OGRjNjdkYTA2YWU0NTViZDUxYjZjYmU5ZDZiZDRiZjZkNzM5MmY2NWFjOTExODRmOWFiNWZkMDlmZjRkNmZlYzhmZjQ4MmJhZGQ0YzI1YWNiYmI4ZjFhOWFkYmJmMTMzYmI2ZDI0M2NkZjMxZjFkMGNmYWRiMzYwYmMxMThjNzk=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "skipClient": true,
+    "creationTimestamp": 1612558669587,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": []
+  }
+}
