@@ -14,7 +14,15 @@
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/00000000000100_added_entity_Doctor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/00000000000200_added_entity_Hospital.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/00000000000300_added_entity_Note.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/00000000000400_added_entity_Patient.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/00000000000500_added_entity_Specialty.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/00000000000100_added_entity_constraints_Doctor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/00000000000400_added_entity_constraints_Patient.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/00000000000500_added_entity_constraints_Specialty.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>
