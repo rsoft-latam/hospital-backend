@@ -1,6 +1,8 @@
 package hospital.service;
 
 import hospital.domain.Note;
+import hospital.domain.extras.NoteDoctorLite;
+import hospital.domain.extras.NotePatientLite;
 import hospital.repository.NoteRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,4 +74,34 @@ public class NoteService {
         log.debug("Request to delete Note : {}", id);
         noteRepository.deleteById(id);
     }
+
+
+
+
+    /**
+     * Get all the notes.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<NotePatientLite> findAllByIdPatient(Pageable pageable, Long idPatient) {
+        log.debug("Request to get all Notes");
+        return noteRepository.findAllByIdPatient(pageable, idPatient);
+    }
+
+
+    /**
+     * Get all the notes.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<NoteDoctorLite> findAllByIdDoctor(Pageable pageable, Long idDoctor) {
+        log.debug("Request to get all Notes");
+        return noteRepository.findAllByIdDoctor(pageable, idDoctor);
+    }
+
+
 }

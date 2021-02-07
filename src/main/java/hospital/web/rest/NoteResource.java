@@ -1,6 +1,8 @@
 package hospital.web.rest;
 
 import hospital.domain.Note;
+import hospital.domain.extras.NoteDoctorLite;
+import hospital.domain.extras.NotePatientLite;
 import hospital.service.NoteService;
 import hospital.service.dto.NoteDTO;
 import hospital.web.rest.errors.BadRequestAlertException;
@@ -160,6 +162,37 @@ public class NoteResource {
     public ResponseEntity<List<NoteDTO>> getAllNotesAuditory(NoteCriteria criteria, Pageable pageable) {
         log.debug("REST request to get Notes by criteria: {}", criteria);
         Page<NoteDTO> page = noteQueryService.findByCriteriaAuditory(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+    /**
+     * {@code GET  /notes/:id} : get the "id" note.
+     *
+     * @param id the id of the note to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the note, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/notes/patient/{idPatient}")
+    public ResponseEntity<List<NotePatientLite>> getAllNotesByIdPatient(Pageable pageable, @PathVariable Long idPatient) {
+        log.debug("REST request to get Note : {}", idPatient);
+        Page<NotePatientLite> page = noteService.findAllByIdPatient(pageable, idPatient);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+
+    /**
+     * {@code GET  /notes/:id} : get the "id" note.
+     *
+     * @param id the id of the note to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the note, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/notes/doctor/{idDoctor}")
+    public ResponseEntity<List<NoteDoctorLite>> getAllNotesByIdDoctor(Pageable pageable, @PathVariable Long idDoctor) {
+        log.debug("REST request to get Note : {}", idDoctor);
+        Page<NoteDoctorLite> page = noteService.findAllByIdDoctor(pageable, idDoctor);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
