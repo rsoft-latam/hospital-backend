@@ -2,6 +2,7 @@ package hospital.web.rest;
 
 import hospital.domain.Hospital;
 import hospital.service.HospitalService;
+import hospital.service.dto.HospitalDTO;
 import hospital.web.rest.errors.BadRequestAlertException;
 import hospital.service.dto.HospitalCriteria;
 import hospital.service.HospitalQueryService;
@@ -141,4 +142,28 @@ public class HospitalResource {
         hospitalService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
+
+
+
+
+
+
+
+    /**
+     * {@code GET  /hospitals} : get all the hospitals.
+     *
+     * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of hospitals in body.
+     */
+    @GetMapping("/hospitals-auditory")
+    public ResponseEntity<List<HospitalDTO>> getAllHospitalsAuditory(HospitalCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Hospitals by criteria: {}", criteria);
+        Page<HospitalDTO> page = hospitalQueryService.findByCriteriaAuditory(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+
 }

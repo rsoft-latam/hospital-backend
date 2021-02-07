@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "hospital")
-public class Hospital implements Serializable {
+public class Hospital extends  AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

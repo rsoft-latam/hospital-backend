@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.criteria.JoinType;
 
+import hospital.service.dto.SpecialtyDTO;
+import hospital.service.mapper.SpecialtyMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -32,9 +34,11 @@ public class SpecialtyQueryService extends QueryService<Specialty> {
     private final Logger log = LoggerFactory.getLogger(SpecialtyQueryService.class);
 
     private final SpecialtyRepository specialtyRepository;
+    private final SpecialtyMapper specialtyMapper;
 
-    public SpecialtyQueryService(SpecialtyRepository specialtyRepository) {
+    public SpecialtyQueryService(SpecialtyRepository specialtyRepository, SpecialtyMapper specialtyMapper) {
         this.specialtyRepository = specialtyRepository;
+        this.specialtyMapper = specialtyMapper;
     }
 
     /**
@@ -101,4 +105,29 @@ public class SpecialtyQueryService extends QueryService<Specialty> {
         }
         return specification;
     }
+
+
+
+
+
+
+
+
+    /**
+     * Return a {@link Page} of {@link Specialty} which matches the criteria from the database.
+     * @param criteria The object which holds all the filters, which the entities should match.
+     * @param page The page, which should be returned.
+     * @return the matching entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<SpecialtyDTO> findByCriteriaAuditory(SpecialtyCriteria criteria, Pageable page) {
+        log.debug("find by criteria : {}, page: {}", criteria, page);
+        final Specification<Specialty> specification = createSpecification(criteria);
+        return specialtyRepository.findAll(specification, page)
+            .map(specialtyMapper::toDto);
+    }
+
+
+
+
 }

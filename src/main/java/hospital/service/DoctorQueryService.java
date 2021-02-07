@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.criteria.JoinType;
 
+import hospital.service.dto.DoctorDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import hospital.domain.Doctor;
 import hospital.domain.*; // for static metamodels
 import hospital.repository.DoctorRepository;
 import hospital.service.dto.DoctorCriteria;
+import hospital.service.mapper.DoctorMapper;
 
 /**
  * Service for executing complex queries for {@link Doctor} entities in the database.
@@ -32,9 +34,11 @@ public class DoctorQueryService extends QueryService<Doctor> {
     private final Logger log = LoggerFactory.getLogger(DoctorQueryService.class);
 
     private final DoctorRepository doctorRepository;
+    private final DoctorMapper doctorMapper;
 
-    public DoctorQueryService(DoctorRepository doctorRepository) {
+    public DoctorQueryService(DoctorRepository doctorRepository, DoctorMapper doctorMapper) {
         this.doctorRepository = doctorRepository;
+        this.doctorMapper = doctorMapper;
     }
 
     /**
@@ -107,4 +111,23 @@ public class DoctorQueryService extends QueryService<Doctor> {
         }
         return specification;
     }
+
+
+
+
+
+    /**
+     * Return a {@link Page} of {@link Doctor} which matches the criteria from the database.
+     * @param criteria The object which holds all the filters, which the entities should match.
+     * @param page The page, which should be returned.
+     * @return the matching entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<DoctorDTO> findByCriteriaAuditory(DoctorCriteria criteria, Pageable page) {
+        log.debug("find by criteria : {}, page: {}", criteria, page);
+        final Specification<Doctor> specification = createSpecification(criteria);
+        return doctorRepository.findAll(specification, page)
+            .map(doctorMapper::toDto);
+    }
+
 }

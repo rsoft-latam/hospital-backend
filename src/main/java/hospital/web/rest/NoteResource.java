@@ -2,6 +2,7 @@ package hospital.web.rest;
 
 import hospital.domain.Note;
 import hospital.service.NoteService;
+import hospital.service.dto.NoteDTO;
 import hospital.web.rest.errors.BadRequestAlertException;
 import hospital.service.dto.NoteCriteria;
 import hospital.service.NoteQueryService;
@@ -141,4 +142,27 @@ public class NoteResource {
         noteService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
+
+
+    /**
+     * OTHERS
+     */
+
+
+    /**
+     * {@code GET  /notes} : get all the notes.
+     *
+     * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of notes in body.
+     */
+    @GetMapping("/notes-auditory")
+    public ResponseEntity<List<NoteDTO>> getAllNotesAuditory(NoteCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Notes by criteria: {}", criteria);
+        Page<NoteDTO> page = noteQueryService.findByCriteriaAuditory(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
 }

@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.criteria.JoinType;
 
+import hospital.service.dto.NoteDTO;
+import hospital.service.mapper.NoteMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -32,9 +34,11 @@ public class NoteQueryService extends QueryService<Note> {
     private final Logger log = LoggerFactory.getLogger(NoteQueryService.class);
 
     private final NoteRepository noteRepository;
+    private final NoteMapper noteMapper;
 
-    public NoteQueryService(NoteRepository noteRepository) {
+    public NoteQueryService(NoteRepository noteRepository, NoteMapper noteMapper) {
         this.noteRepository = noteRepository;
+        this.noteMapper = noteMapper;
     }
 
     /**
@@ -100,4 +104,29 @@ public class NoteQueryService extends QueryService<Note> {
         }
         return specification;
     }
+
+
+
+    /**
+     * OTHERS
+     */
+
+
+    /**
+     * Return a {@link Page} of {@link Note} which matches the criteria from the database.
+     * @param criteria The object which holds all the filters, which the entities should match.
+     * @param page The page, which should be returned.
+     * @return the matching entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<NoteDTO> findByCriteriaAuditory(NoteCriteria criteria, Pageable page) {
+        log.debug("find by criteria : {}, page: {}", criteria, page);
+        final Specification<Note> specification = createSpecification(criteria);
+        return noteRepository.findAll(specification, page)
+            .map(noteMapper::toDto);
+    }
+
+
+
+
 }

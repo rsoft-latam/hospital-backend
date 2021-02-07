@@ -2,6 +2,7 @@ package hospital.web.rest;
 
 import hospital.domain.Specialty;
 import hospital.service.SpecialtyService;
+import hospital.service.dto.SpecialtyDTO;
 import hospital.web.rest.errors.BadRequestAlertException;
 import hospital.service.dto.SpecialtyCriteria;
 import hospital.service.SpecialtyQueryService;
@@ -141,4 +142,28 @@ public class SpecialtyResource {
         specialtyService.delete(id);
         return ResponseEntity.noContent().headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString())).build();
     }
+
+
+
+
+
+
+
+    /**
+     * {@code GET  /specialties} : get all the specialties.
+     *
+     * @param pageable the pagination information.
+     * @param criteria the criteria which the requested entities should match.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of specialties in body.
+     */
+    @GetMapping("/specialties-auditory")
+    public ResponseEntity<List<SpecialtyDTO>> getAllSpecialtiesAuditory(SpecialtyCriteria criteria, Pageable pageable) {
+        log.debug("REST request to get Specialties by criteria: {}", criteria);
+        Page<SpecialtyDTO> page = specialtyQueryService.findByCriteriaAuditory(criteria, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+
 }
