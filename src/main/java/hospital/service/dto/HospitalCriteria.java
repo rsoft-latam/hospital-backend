@@ -28,15 +28,12 @@ public class HospitalCriteria implements Serializable, Criteria {
 
     private StringFilter name;
 
-    private StringFilter creationDate;
-
     public HospitalCriteria() {
     }
 
     public HospitalCriteria(HospitalCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.name = other.name == null ? null : other.name.copy();
-        this.creationDate = other.creationDate == null ? null : other.creationDate.copy();
     }
 
     @Override
@@ -60,14 +57,6 @@ public class HospitalCriteria implements Serializable, Criteria {
         this.name = name;
     }
 
-    public StringFilter getCreationDate() {
-        return creationDate;
-    }
-
-    public void setCreationDate(StringFilter creationDate) {
-        this.creationDate = creationDate;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -80,16 +69,14 @@ public class HospitalCriteria implements Serializable, Criteria {
         final HospitalCriteria that = (HospitalCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(name, that.name) &&
-            Objects.equals(creationDate, that.creationDate);
+            Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
-        name,
-        creationDate
+        name
         );
     }
 
@@ -99,7 +86,6 @@ public class HospitalCriteria implements Serializable, Criteria {
         return "HospitalCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (name != null ? "name=" + name + ", " : "") +
-                (creationDate != null ? "creationDate=" + creationDate + ", " : "") +
             "}";
     }
 

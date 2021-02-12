@@ -92,9 +92,6 @@ public class HospitalQueryService extends QueryService<Hospital> {
             if (criteria.getName() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getName(), Hospital_.name));
             }
-            if (criteria.getCreationDate() != null) {
-                specification = specification.and(buildStringSpecification(criteria.getCreationDate(), Hospital_.creationDate));
-            }
         }
         return specification;
     }

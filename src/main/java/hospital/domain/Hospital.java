@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "hospital")
-public class Hospital extends  AbstractAuditingEntity implements Serializable {
+public class Hospital extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,9 +23,6 @@ public class Hospital extends  AbstractAuditingEntity implements Serializable {
     @NotNull
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "creation_date")
-    private String creationDate;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -47,19 +44,6 @@ public class Hospital extends  AbstractAuditingEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public Hospital creationDate(String creationDate) {
-        this.creationDate = creationDate;
-        return this;
-    }
-
-    public void setCreationDate(String creationDate) {
-        this.creationDate = creationDate;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
@@ -85,7 +69,6 @@ public class Hospital extends  AbstractAuditingEntity implements Serializable {
         return "Hospital{" +
             "id=" + getId() +
             ", name='" + getName() + "'" +
-            ", creationDate='" + getCreationDate() + "'" +
             "}";
     }
 }

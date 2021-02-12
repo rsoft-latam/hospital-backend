@@ -35,9 +35,6 @@ public class HospitalResourceIT {
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_CREATION_DATE = "AAAAAAAAAA";
-    private static final String UPDATED_CREATION_DATE = "BBBBBBBBBB";
-
     @Autowired
     private HospitalRepository hospitalRepository;
 
@@ -63,8 +60,7 @@ public class HospitalResourceIT {
      */
     public static Hospital createEntity(EntityManager em) {
         Hospital hospital = new Hospital()
-            .name(DEFAULT_NAME)
-            .creationDate(DEFAULT_CREATION_DATE);
+            .name(DEFAULT_NAME);
         return hospital;
     }
     /**
@@ -75,8 +71,7 @@ public class HospitalResourceIT {
      */
     public static Hospital createUpdatedEntity(EntityManager em) {
         Hospital hospital = new Hospital()
-            .name(UPDATED_NAME)
-            .creationDate(UPDATED_CREATION_DATE);
+            .name(UPDATED_NAME);
         return hospital;
     }
 
@@ -100,7 +95,6 @@ public class HospitalResourceIT {
         assertThat(hospitalList).hasSize(databaseSizeBeforeCreate + 1);
         Hospital testHospital = hospitalList.get(hospitalList.size() - 1);
         assertThat(testHospital.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testHospital.getCreationDate()).isEqualTo(DEFAULT_CREATION_DATE);
     }
 
     @Test
@@ -153,8 +147,7 @@ public class HospitalResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(hospital.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
     }
     
     @Test
@@ -168,8 +161,7 @@ public class HospitalResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(hospital.getId().intValue()))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.creationDate").value(DEFAULT_CREATION_DATE));
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME));
     }
 
 
@@ -269,84 +261,6 @@ public class HospitalResourceIT {
         defaultHospitalShouldBeFound("name.doesNotContain=" + UPDATED_NAME);
     }
 
-
-    @Test
-    @Transactional
-    public void getAllHospitalsByCreationDateIsEqualToSomething() throws Exception {
-        // Initialize the database
-        hospitalRepository.saveAndFlush(hospital);
-
-        // Get all the hospitalList where creationDate equals to DEFAULT_CREATION_DATE
-        defaultHospitalShouldBeFound("creationDate.equals=" + DEFAULT_CREATION_DATE);
-
-        // Get all the hospitalList where creationDate equals to UPDATED_CREATION_DATE
-        defaultHospitalShouldNotBeFound("creationDate.equals=" + UPDATED_CREATION_DATE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHospitalsByCreationDateIsNotEqualToSomething() throws Exception {
-        // Initialize the database
-        hospitalRepository.saveAndFlush(hospital);
-
-        // Get all the hospitalList where creationDate not equals to DEFAULT_CREATION_DATE
-        defaultHospitalShouldNotBeFound("creationDate.notEquals=" + DEFAULT_CREATION_DATE);
-
-        // Get all the hospitalList where creationDate not equals to UPDATED_CREATION_DATE
-        defaultHospitalShouldBeFound("creationDate.notEquals=" + UPDATED_CREATION_DATE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHospitalsByCreationDateIsInShouldWork() throws Exception {
-        // Initialize the database
-        hospitalRepository.saveAndFlush(hospital);
-
-        // Get all the hospitalList where creationDate in DEFAULT_CREATION_DATE or UPDATED_CREATION_DATE
-        defaultHospitalShouldBeFound("creationDate.in=" + DEFAULT_CREATION_DATE + "," + UPDATED_CREATION_DATE);
-
-        // Get all the hospitalList where creationDate equals to UPDATED_CREATION_DATE
-        defaultHospitalShouldNotBeFound("creationDate.in=" + UPDATED_CREATION_DATE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHospitalsByCreationDateIsNullOrNotNull() throws Exception {
-        // Initialize the database
-        hospitalRepository.saveAndFlush(hospital);
-
-        // Get all the hospitalList where creationDate is not null
-        defaultHospitalShouldBeFound("creationDate.specified=true");
-
-        // Get all the hospitalList where creationDate is null
-        defaultHospitalShouldNotBeFound("creationDate.specified=false");
-    }
-                @Test
-    @Transactional
-    public void getAllHospitalsByCreationDateContainsSomething() throws Exception {
-        // Initialize the database
-        hospitalRepository.saveAndFlush(hospital);
-
-        // Get all the hospitalList where creationDate contains DEFAULT_CREATION_DATE
-        defaultHospitalShouldBeFound("creationDate.contains=" + DEFAULT_CREATION_DATE);
-
-        // Get all the hospitalList where creationDate contains UPDATED_CREATION_DATE
-        defaultHospitalShouldNotBeFound("creationDate.contains=" + UPDATED_CREATION_DATE);
-    }
-
-    @Test
-    @Transactional
-    public void getAllHospitalsByCreationDateNotContainsSomething() throws Exception {
-        // Initialize the database
-        hospitalRepository.saveAndFlush(hospital);
-
-        // Get all the hospitalList where creationDate does not contain DEFAULT_CREATION_DATE
-        defaultHospitalShouldNotBeFound("creationDate.doesNotContain=" + DEFAULT_CREATION_DATE);
-
-        // Get all the hospitalList where creationDate does not contain UPDATED_CREATION_DATE
-        defaultHospitalShouldBeFound("creationDate.doesNotContain=" + UPDATED_CREATION_DATE);
-    }
-
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -355,8 +269,7 @@ public class HospitalResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(hospital.getId().intValue())))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE)));
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)));
 
         // Check, that the count call also returns 1
         restHospitalMockMvc.perform(get("/api/hospitals/count?sort=id,desc&" + filter))
@@ -403,8 +316,7 @@ public class HospitalResourceIT {
         // Disconnect from session so that the updates on updatedHospital are not directly saved in db
         em.detach(updatedHospital);
         updatedHospital
-            .name(UPDATED_NAME)
-            .creationDate(UPDATED_CREATION_DATE);
+            .name(UPDATED_NAME);
 
         restHospitalMockMvc.perform(put("/api/hospitals")
             .contentType(MediaType.APPLICATION_JSON)
@@ -416,7 +328,6 @@ public class HospitalResourceIT {
         assertThat(hospitalList).hasSize(databaseSizeBeforeUpdate);
         Hospital testHospital = hospitalList.get(hospitalList.size() - 1);
         assertThat(testHospital.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testHospital.getCreationDate()).isEqualTo(UPDATED_CREATION_DATE);
     }
 
     @Test

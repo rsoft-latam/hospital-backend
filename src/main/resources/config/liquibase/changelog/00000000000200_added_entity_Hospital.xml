@@ -18,11 +18,6 @@
             <column name="name" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
-            <column name="creation_date" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-
 
             <column name="created_by" type="varchar(50)">
                 <constraints nullable="true"/>
@@ -32,7 +27,6 @@
             </column>
             <column name="last_modified_by" type="varchar(50)"/>
             <column name="last_modified_date" type="timestamp"/>
-
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
@@ -58,7 +52,6 @@
                   tableName="hospital">
             <column name="id" type="numeric"/>
             <column name="name" type="string"/>
-            <column name="creation_date" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
